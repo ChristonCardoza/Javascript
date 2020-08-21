@@ -1,0 +1,126 @@
+<html>
+    <head>
+        <title>Statements</title>
+    </head>
+    <body>
+        <p><h3 style="color: blue;">Checkout the console logs for more informarion!</h3></p>
+
+        1. if ,if else, if-else lader  <br/>
+        2. switch statement <br/>
+        3. for loop <br/>
+        4. while , do while <br/>
+
+
+        <script>
+             
+            //1. if ,if else, if-else lader
+            console.log("**************************************************************************" );
+            console.log("*                  if ,if-else, if-else-lader                            *" );
+            console.log("**************************************************************************" );
+             var a = 10;
+             var b = 20;
+             var c = 30;
+             var d = 10;
+            console.log("The values of a b c and c are :",a,b,c,d);
+
+            if(c>d){
+                console.log("Excuting if condition only in if state");
+                console.log("C is greater than D");
+            }
+
+            if(a>b){
+                console.log("Excuting if condition only in if-else state");
+                console.log("A is greater than B");
+            }
+            else{
+                console.log("Excuting else condition only in if-else state");
+                console.log("A is smaller than B");
+            }
+
+            if(a>b){
+                console.log("Excuting if condition only in if-else-lader ");
+                console.log("A is greater than B");
+            }
+            else if(a>c){
+
+                console.log("Excuting elseif condition only in if-else-lader");
+                console.log("A is greater than c");
+    
+            }
+            else if(a==d){
+
+                console.log("Excuting elseif condition only in if-else-lader");
+                console.log("A is equal to D");
+            }
+            else{
+                console.log("Excuting else condition only in if-else-lader");
+                console.log("A is least value");
+            }
+
+
+            // 2. switch statement
+            console.log("**************************************************************************" );
+            console.log("*                              switch                                    *" );
+            console.log("**************************************************************************" );
+            var date = Math.floor(Math.random() * (32 - 1) + 1);
+            var day;
+            console.log("Today's date is :",date);
+            switch(date%7){
+
+                case 0 : console.log("Today is Sunday");
+                         break;
+                case 1 : console.log("Today is Monday");
+                         break;
+                case 2 : console.log("Today is Tueday");
+                         break;
+                case 3 : console.log("Today is Wednesday");
+                         break;
+                case 4 : console.log("Today is Thusday");
+                         break;
+                case 5 : console.log("Today is Friday");
+                         break;
+                default : console.log("Today is Saturday");
+
+            }
+
+            //3. for loop
+            console.log("**************************************************************************" );
+            console.log("*                              for loop                                  *" );
+            console.log("**************************************************************************" );
+            for(var i=0;i<5;i++){
+                console.log(i);
+            }
+
+            //4. while, do while loop
+            console.log("**************************************************************************" );
+            console.log("*                      while, do while loop                              *" );
+            console.log("**************************************************************************" );
+            var i = 5;
+            console.log("The value of i for while(i>0) is :",i);
+            while(i>0){
+                console.log(i);
+                --i;
+            }
+
+            var j =10;
+            console.log("The value of i for do-while(j=100) is :",j);
+            do{
+                console.log("First time excuting loop with any condtion");
+                console.log(j);
+                
+            }while(j==100)
+
+
+
+
+
+
+
+
+
+
+        </script>
+
+    </body>
+
+</html>

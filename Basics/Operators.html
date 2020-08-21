@@ -1,0 +1,115 @@
+<html>
+    <head>
+        <title>Opearators</title>
+    </head>
+    <body>
+
+        <p><h3 style="color: blue;">Checkout the console logs for more informarion!</h3></p>
+
+        1. Assignment Operaotr: = used to assign the values to variable <br/>
+        2. Arithmatic Operator : +,-,*,/,%  used for doing basic maths <br/>
+        3. Logical Operator : &&, || used for doing AND: both should true then return true OR: Any one is true then return true <br/>
+        4. Uranry Operator : ++, -- mainly used used to shorten the assignment and in loops <br/>
+        5. Ternary Operator : (condition)? :statement1 : Statment2 If statement one is true then excute statement1 else statement2 <br/>
+        6. Equivalent Operator : == return true when both values are equal<br/>
+        7. Identical Operator : === return true when both value and data type should Identical <br/>
+    
+        <script>
+             
+        //1. Assignment Operaotr: = used to assign the values to variab
+        console.log("**************************************************************************" );
+        console.log("*                      Assignment Operaotr                               *" );
+        console.log("**************************************************************************" );
+        var a = 20;
+        var b = 9;
+        console.log("The value of a is : ",a);
+        console.log("The value of b is : ",b);
+
+        // 2. Arithmatic Operator : +,-,*,/,%  used for doing basic maths <br/>
+        console.log("**************************************************************************" );
+        console.log("*                      Arithmatic Operator                               *" );
+        console.log("**************************************************************************" );
+        console.log("The Sum of a an b is : " ,(a+b));
+        console.log("The Diffrence of a an b is : ",(a-b));
+        console.log("The Multiplication of a an b is : ", (a*b));
+        console.log("The Division of a an b is : ", (a/b));
+        console.log("The Modulos of a an b is : ", (a%b));
+
+        //  3. Logical Operator : &&, || used for doing AND OR
+        console.log("**************************************************************************" );
+        console.log("*                        Logical Operator                                *" );
+        console.log("**************************************************************************" );
+       var i = true;
+       var u = true;
+       var m = false;
+       var n = false;
+       console.log("Values for i,u,m,n are :",i ,u , m ,n);
+       console.log("AND Operation: when both are true then i am : ",(i && u));
+       console.log("AND Operation: when only one is true then i am : ",(i && m));
+       console.log("AND Operation: when both are false then i am : ",(m && n));
+       console.log("OR Operation: when both are true then i am : ",(i || u));
+       console.log("OR Operation: when only one is true then i am : ",(i || m));
+       console.log("OR  Operation: when both are false then i am : ",(m || n));
+
+
+       //   4. Uranry Operator : ++, -- mainly used used to shorten the assignment and in loops
+        console.log("**************************************************************************" );
+        console.log("*                        Uranry Operator                                 *" );
+        console.log("**************************************************************************" );
+       var c= 20;
+       var d = 15;
+       console.log("Values of c & d before applying unary operator",c,d);
+       console.log("Values of c++ : ", c++);
+       console.log("Values of ++c : ",++c);
+       console.log("Values of d-- : ", d--);
+       console.log("Values of --d : ", --d);
+
+        //    5. Ternary Operator : (condition)? :statement1 : Statment2 If statement one is true then excute statement1 else statement2
+        console.log("**************************************************************************" );
+        console.log("*                        Ternary Operator                                *" );
+        console.log("**************************************************************************" );
+        var age = 25;
+        var age1 = 15;
+        var category;
+        console.log("Values of age & age1:  ",age,age1);
+        console.log("If your age Greater than 22 then your: ",((age>22)? category="You Should do the Job" : category ="You are a student"));
+        console.log("If your age smaller than 22 then your: ",((age1>22)? category="You Should do the Job" : category ="You are a student"));
+       
+        // 6. Equivalent Operator : == return true when both values are equal
+        console.log("**************************************************************************" );
+        console.log("*                       Equivalent Operator                              *" );
+        console.log("**************************************************************************" );
+        var e = 10;
+        var f = '10'
+        var g = 20;
+        console.log("Value and datatype of e is :",e,typeof e);
+        console.log("Value and datatype of f is :",f,typeof f);
+        console.log("Value and datatype of g is :",g,typeof g);
+        console.log("Value (e==f) is :",(e==f));
+        console.log("Value (e==g) is :",(e==g));
+
+        // 7. Identical Operator : === return true when both value and data type should Identical
+        console.log("**************************************************************************" );
+        console.log("*                       Equivalent Operator                              *" );
+        console.log("**************************************************************************" );
+        var h = 10;
+        var j = '10'
+        var k = 20;
+        var l = 10;
+        console.log("Value and datatype of h is :",h,typeof h);
+        console.log("Value and datatype of j is :",j,typeof j);
+        console.log("Value and datatype of k is :",k,typeof k);
+        console.log("Value and datatype of l is :",l,typeof l);
+        console.log("Value (h===j) is :",(h===j));
+        console.log("Value (h===k) is :",(h===k));
+        console.log("Value (h===k) is :",(h===l));
+
+
+
+
+
+        </script>
+
+    </body>
+
+</html>
