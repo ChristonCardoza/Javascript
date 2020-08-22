@@ -1,17 +1,27 @@
 <html>
     <head>
         <title>Variables</title>
-    </head>
+    </head> 
     <body>
         <p><h3 style="color: blue;">Checkout the console logs for more informarion!</h3></p>
+        1. Constant : Can declare as const; assigned values are not changeble <br/>
+        2. Variable : Can be declare <br/> 
+        <ol>
+            <li>var : Old method of declaring; memory leakage & finding declaration are main problem </li>
+            <li>let : New method of declaring</li>
+        </ol>
         <script>
              
-             var a;
+             let a;
              a = 10;
              console.log("value of a is : "+a);
 
-             var b = 5;
+             let b = 5;
              console.log("value of b is : "+b);
+
+             const c = 10;
+             console.log("value of constant c is : "+c);
+
 
 
         </script>
