@@ -8,7 +8,9 @@
         1. Function Declartion : function func_name(func_variable){func_body}<br/>
         2. Function Calling : func_name(func_variable);<br/>
         3. Function Expression : let var_name = function func_name(func_variable){func_body}; var_name(func_variable);<br/>
-        <script>
+        4. IIF : Immediately-Invoked-Function-Expression =<br/> (function () {//write your js code here})();<br/>
+       
+       <script>
              
             //  1. Function Declartion
             console.log("**************************************************************************" );
@@ -26,13 +28,25 @@
 
             // 3 Function Expression
             console.log("**************************************************************************" );
-            console.log("*                      Function Declartion                               *" );
+            console.log("*                      Function Expression                              *" );
             console.log("**************************************************************************" );
             let difference = function sub(x,y){
                 return x - y;
             };
             console.log("Diffrence of 3 and 7 is : ",difference(3,7));
             // console.log("Diffrence of 7 and 3 is : ",sub(3,7));
+
+
+            // 3 Function Expression
+            console.log("**************************************************************************" );
+            console.log("*          IIF : Immediately-Invoked-Function-Expression                 *" );
+            console.log("**************************************************************************" );
+            (function mul(x,y){
+                var z = x * y;
+                console.log("Multiplicatione of 3 and 7 is : ",z);
+            })(3,7);
+            
+           
 
 
 
