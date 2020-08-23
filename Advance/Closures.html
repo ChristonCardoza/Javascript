@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>Closures</title>
+    </head>
+    <body>
+        <p><h3 style="color: blue;">Checkout the console logs for more informarion!</h3></p>
+
+        1. Closure means that an inner function always has access to the vars and parameters of its outer function,
+            even after the outer function has returned.<br/>
+                <pre>
+                    function OuterFunction() {
+
+                        var outerVariable = 100;
+                    
+                        function InnerFunction() {
+                            alert(outerVariable);
+                        }
+                    
+                        return InnerFunction;
+                    }
+                    var innerFunc = OuterFunction();
+                    
+                    innerFunc(); // 100
+
+                </pre>
+        2. Closure is useful in hiding implementation detail in JavaScript.
+           In other words, it can be useful to create private variables or functions.<br/>
+                <pre>
+                    var counter = (function() {
+                                var privateCounter = 0;
+                                function changeBy(val) {
+                                privateCounter += val;
+                            }
+                            return {
+                                increment: function() {
+                                    changeBy(1);
+                                },
+                                decrement: function() {
+                                    changeBy(-1);
+                                },
+                                value: function() {
+                                    return privateCounter;
+                                }
+                            };   
+                      })();
+                      
+                      alert(counter.value()); // 0
+                      counter.increment();
+                      counter.increment();
+                      alert(counter.value()); // 2
+                      counter.decrement();
+                      alert(counter.value()); // 1
+                </pre> 
+                In the above example, increment(), decrement() and value() becomes public function 
+                because they are included in the return object, whereas changeBy() function becomes 
+                private function because it is not returned and only used internally by increment() and decrement().<br/>
+       
+           
+        
+       <script>
+
+            //  Async Callback issue
+            console.log("**************************************************************************" );
+            console.log("*                        Async Callback issue                            *" );
+            console.log("**************************************************************************" );
+            
+            var i;
+
+            var print = function print(){
+                console.log("i value for ${i}th interation is:",i)
+            };
+
+            for(i=0;i<5;i++){
+                setTimeout(print,1000);
+            }
+
+            //  Async Callback issue
+            console.log("**************************************************************************" );
+            console.log("*                       Async Callback Solution                          *" );
+            console.log("**************************************************************************" );
+            
+            var j;
+
+            var print = function print(){
+                console.log("j value for ${j}th interation is:",j)
+            };
+
+            for(j=0;j<5;j++){
+
+                (function(cuttentJ){
+                        setTimeout(print(cuttentJ),1000);
+                })(j)
+            };
+            
+            
+                    
+        </script>
+
+    </body>
+
+</html>

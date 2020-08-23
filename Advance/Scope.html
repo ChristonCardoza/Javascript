@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>Scopes</title>
+    </head>
+    <body>
+        <p><h3 style="color: blue;">Checkout the console logs for more informarion!</h3></p>
+
+        1. In JS scope are Functional Scoping ie unlike other programming language item scope bounded by {}<br/>
+        2. Every global varible create a property in window object<br/>
+        3. LHS is Write Operation and RHS is Read Operation<br/>
+            <ul>
+                <li>Javascript compliler will allow if item is NOT  declared and we treied to assign values for that(WRITE)</li>
+                <li>Javascript compliler throws error if item is NOT  declared and we treied to use  that(READ)</li>
+            </ul>
+            <pre>
+                a = 10; // automatically declare a ie Hoisting
+                console.log(b); // throws error 
+            </pre>
+        4. Scope of below code: here when file get compiled, Compiler wont find any declartion for c in function myFun scope and global scope
+           since JS allow write ie LHS it create a declartion for c in global scope. We can avoid this by using "use strict" key  <br/>
+            <pre>
+                var a = 10;
+                function myFun(){
+                    var b = a;
+                    console.log(b);
+                    c = 100;
+                }
+
+            </pre>
+
+            <TABLE  BORDER="1">
+                <TR>
+                   <TH COLSPAN="2">
+                      <H3><BR>Scopes</H3>
+                   </TH>
+                </TR>
+                   <TH>Global Scope</TH>
+                   <TH>myFun Scope</TH>
+                <TR>
+                    <TD>a</TD>
+                    <TD>b</TD>
+                 </TR>
+                 <TR>
+                    <TD>myFun</TD>
+                    <TD></TD>
+                 </TR>
+                 <TR>
+                    <TD>c</TD>
+                    <TD></TD>
+                 </TR>
+            </TABLE ><br/>
+        3. Hosting :Hoisting is a concept in JavaScript, not a feature. In other scripting or server side languages, variables or functions 
+           must be declared before using it.In JavaScript, variable and function names can be used before declaring it. <br/>
+            <ul>
+                <li>The JavaScript compiler moves all the declarations of variables and functions at the top so that there will not be any error.</li>
+                <li>Only variable declarations move to the top, not the initialization.</li>
+                    <pre>
+                        alert('x = ' + x); // display x = undefined
+                        var x = 1;
+                    </pre>
+                <li>Functions definition moves first before variables.</li>
+                    <pre>
+                        alert(Sum(5, 5)); // 10
+                        function Sum(val1, val2)
+                        {
+                            return val1 + val2;
+                        }
+                    </pre>
+                <li>JavaScript compiler does not move function expression.</li>
+                <pre>
+                    Add(5, 5); // error
+                    var Add = function Sum(val1, val2)
+                    {
+                        return val1 + val2;
+                    }
+                </pre>
+            </ul>
+
+
+    </body>
+
+</html>
