@@ -1,0 +1,531 @@
+<html>
+    <head>
+        <title>Objects</title>
+    </head>
+    <body>
+        <p><h3 style="color: blue;">Checkout the console logs for more informarion!</h3></p>
+
+        1. Traditional way to create Object in Javascript <br/>
+            <pre>
+
+                var a = {};
+                var b = {
+                    "First_Name" : "Christon" ,
+                    "Last_Name"  : " Cardoza" ,
+                    "Full_Name" : function(){
+                        return (b.First_Name + b.Last_Name);
+                    }
+                }
+                b.age = 24;
+                console.log("The Full Name is :",b.Full_Name());  //The Full Name is : Christon Cardoza
+                console.log("The created object is :",b);  //The created object is : {First_Name: "Christon", Last_Name: " Cardoza", age: 24, Full_Name: ƒ}
+
+            </pre>
+
+        2. Usage of function for creating objects in Javascript <br/>
+            <pre>
+                
+                function ObjectCreator(firstname,lastname,age){
+
+                    var newObject = {};
+
+                    newObject.firstname = firstname;
+                    newObject.lastname = lastname;
+                    newObject.age = age;
+                    newObject.fullname = firstname + lastname;
+
+                    return newObject
+
+                }
+
+                obj1 = ObjectCreator("Christon","Cardoza",24);
+                obj2 = ObjectCreator("Chrizel","Cardoza",16);
+
+                console.log("The created object Obj1 is :",obj1);  // The created object Obj1 is : {firstname: "Christon", lastname: "Cardoza", age: 24, fullname: "ChristonCardoza"}
+                console.log("The created object Obj2 is :",obj2);  // The created object Obj2 is : {firstname: "Chrizel", lastname: "Cardoza", age: 16, fullname: "ChrizelCardoza"}
+                
+            </pre>
+
+        3. Best way of creating object in Javascript using NEW keyword (Constructor Function) <br/>
+            <ul>
+                <li>In above example we observed that at the begining of function call we are creating a empty object and at the endof function call returning the created object</li>
+                <li> NEW key word will internally create emptu object at begining of function call and return it at the endof call</li>
+                <li> We can refere it as "this" keyword and fuction is called as Constructor Function</li>
+                <li>The new keyword performs following four tasks:</li>
+                    <ol>
+                        <li>It creates new empty object e.g. obj = { };</li>
+                        <li>It sets new empty object's invisible 'prototype' property to be the constructor function's visible and accessible 'prototype' property. 
+                            (Every function has visible 'prototype' property whereas every object includes invisible 'prototype' property)</li>
+                        <li>It binds property or function which is declared with this keyword to the new object.</li>
+                        <li>It returns newly created object unless the constructor function returns a non-primitive value (custom JavaScript object). 
+                            If constructor function does not include return statement then compiler will insert 'return this;' 
+                            implicitly at the end of the function. If the constructor function returns a primitive value then it will be ignored.</li>
+                    </ol>
+            </ul>
+            <pre>
+                
+                function ObjectCreator(firstname,lastname,age){
+
+                    this.firstname = firstname;
+                    this.lastname = lastname;
+                    this.age = age;
+                    this.fullname = firstname + lastname;
+
+                }
+
+                obj1 =  new ObjectCreator("Christon","Cardoza",24);
+                obj2 =  new ObjectCreator("Chrizel","Cardoza",16);
+
+                console.log("The created object Obj1 is :",obj1);  // The created object Obj1 is : {firstname: "Christon", lastname: "Cardoza", age: 24, fullname: "ChristonCardoza"}
+                console.log("The created object Obj2 is :",obj2);  // The created object Obj2 is : {firstname: "Chrizel", lastname: "Cardoza", age: 16, fullname: "ChrizelCardoza"}
+                
+            </pre>
+
+        4.  The rules applies to "this" and Its Precedence <br/>
+            <ul>
+                <li>Precedence:</li>
+
+                    <ol>
+                        <li>bind()</li> 
+                        <li> call() and apply()</li>
+                        <li>Object method</li>
+                        <li>Global scope</li>
+                    </ol><br/><br/>
+
+                <li>Rules:</li><br/>
+                    
+                    <ol>
+                        <li>Global scope</li><br/>
+                            <ul>
+                                <li>If a function which includes 'this' keyword, is called from the global scope then this will point to the window object</li>
+                                <li>
+                                    <pre>
+
+                                        var myVar = 100;
+
+                                        function WhoIsThis() {
+                                            var myVar = 200;
+
+                                            console.log("myVar = " + myVar); // 200
+                                            console.log("this.myVar = " + this.myVar); // 100
+                                        }
+
+                                        WhoIsThis(); // inferred as window.WhoIsThis()
+
+                                    </pre>
+                                </li>
+                                <li>In the above example, a function WhoIsThis() is being called from the global scope. The global scope means in the context of window object. 
+                                    We can optionally call it like window.WhoIsThis(). So in the above example, this keyword in WhoIsThis() function will refer to window object. 
+                                    So, this.myVar will return 100. However, if you access myVar without this then it will refer to local myVar variable defined in WhoIsThis() function.
+                                </li>
+                                <li>'this' points to global window object even if it is used in an inner function.</li>
+                                <li>
+                                    <pre>
+
+                                        var myVar = 100;
+
+                                        function SomeFunction() {
+
+                                            function WhoIsThis() {
+                                                var myVar = 200;
+
+                                                console.log("myVar = " + myVar); // 200
+                                                console.log("this.myVar = " + this.myVar); // 100
+                                            }
+
+                                            WhoIsThis(); 
+                                        }
+
+                                        SomeFunction();
+
+                                    </pre>
+                                </li>
+
+                            </ul><br/>
+                        
+                        <li>Object method</li><br/>
+                            <ul>
+                                <li>When you create an object of a function using new keyword then this will point to that particular object. </li>
+                                <li>
+                                    <pre>
+
+                                        var myVar = 100;
+
+                                        function WhoIsThis() {
+                                            this.myVar = 200;
+                                            
+                                            this.display = function(){
+                                                var myVar = 300;
+                                                
+                                                console.log("myVar = " + myVar); // 300
+                                                console.log("this.myVar = " + this.myVar);  // 200
+                                            };
+                                        }
+                                        var obj = new WhoIsThis();
+
+                                        obj.display();
+
+                                    </pre>
+                                </li>
+                                <li>In the above example, obj will have two properties myVar and display, where display is a function expression. 
+                                    So, this inside display() method points to obj when calling obj.display(). </li>
+                            </ul><br/>
+
+                        <li>call() and apply()</li><br/>
+                            <ul>
+                                <li>In JavaScript, a function can be invoked using () operator as well as call() and apply() method </li>
+                                <li>The main purpose of call() and apply() is to set the context of this inside a function irrespective whether that function is being called in the global scope or as object's method.</li>
+                                <li>You can pass an object as a first parameter in call() and apply() to which the this inside a calling function should point to </li>
+                                <li>
+                                    <pre>
+
+                                        var myVar = 100;
+
+                                        function WhoIsThis() {
+                                        
+                                            console.log(this.myVar);
+                                        }
+                                        
+                                        var obj1 = { myVar : 200 , whoIsThis: WhoIsThis };
+                                        
+                                        var obj2 = { myVar : 300 , whoIsThis: WhoIsThis };
+                                        
+                                        WhoIsThis(); // 'this' will point to window object
+                                        
+                                        WhoIsThis.call(obj1); // 'this' will point to obj1
+                                        
+                                        WhoIsThis.apply(obj2); // 'this' will point to obj2
+                                        
+                                        obj1.whoIsThis.call(window); // 'this' will point to window object
+                                        
+                                        WhoIsThis.apply(obj2); // 'this' will point to obj2
+
+                                    </pre>
+                                </li>
+                                <li>
+                                    As you can see in the above example, when the function WhoIsThis is called using () operator (like WhoIsThis()) then this inside a function follows the rule- refers to window object. 
+                                    However, when the WhoIsThis is called using call() and apply() method then this refers to an object which is passed as a first parameter irrespective of how the function is being called.
+                                    Therefore, this will point to obj1 when a function got called as WhoIsThis.call(obj1). In the same way, this will point to obj2 when a function got called like WhoIsThis.apply(obj2)
+                                </li>
+                            </ul><br/>
+
+                            <li>bind()</li><br/>
+                            <ul>
+                                <li>The bind() method was introduced since ECMAScript 5. It can be used to set the context of 'this' to a specified object when a function is invoked. </li>
+                                <li>The bind() method is usually helpful in setting up the context of this for a callback function</li>
+                                <li>
+                                    <pre>
+
+                                        var myVar = 100;
+    
+                                        function SomeFunction(callback)
+                                        {
+                                            var myVar = 200;
+
+                                            callback();
+                                        };
+                                            
+                                        var obj = {
+                                                    myVar: 300,
+                                                    WhoIsThis : function() {
+                                                        console.log("'this' points to " + this + ", myVar = " + this.myVar);
+                                                    }
+                                            };
+                                            
+                                        SomeFunction(obj.WhoIsThis); 
+                                        SomeFunction(obj.WhoIsThis.bind(obj)); 
+                                    </pre>
+                                </li>
+                                <li>
+                                    As you can see in the above example, when the function WhoIsThis is called using () operator (like WhoIsThis()) then this inside a function follows the rule- refers to window object. 
+                                    However, when the WhoIsThis is called using call() and apply() method then this refers to an object which is passed as a first parameter irrespective of how the function is being called.
+                                    Therefore, this will point to obj1 when a function got called as WhoIsThis.call(obj1). In the same way, this will point to obj2 when a function got called like WhoIsThis.apply(obj2)
+                                </li>
+                            </ul><br/>
+                        
+                            
+                    </ol>
+
+            </ul><br/>
+
+            5. Prototype  and In heritance in JavaScript <br/>
+                <ul>
+                    <li>JavaScript is a dynamic language. You can attach new properties to an object at any time as shown below</li>
+                    <li>The prototype is an object that is associated with every functions and objects by default in JavaScript,
+                         where function's prototype property is accessible and modifiable and object's prototype property (aka attribute) is not visible</li>
+                    <li> The prototype object is special type of enumerable object to which additional properties can be attached to it which will be shared across all the instances of it's constructor function.</li>
+                    <li>Every object which is created using literal syntax or constructor syntax with the new keyword, includes __proto__ property that points to prototype object of a function that created this object.</li>
+                    <li>Function's prototype property can be accessed using "function-name.prototype". However, an object (instance) does not expose prototype property, instead you can access it using __proto__.</li>
+                    <li>object's prototype property is invisible. Use Object.getPrototypeOf(obj) method instead of __proto__ to access prototype object.</li>
+                    <li>The prototype object is being used by JavaScript engine in two things, 1) to find properties and methods of an object 2) to implement inheritance in JavaScript.</li>
+                    <li>ach object's prototype is linked to function's prototype object. If you change function's prototype then only new objects will be linked to changed prototype. All other existing objects will still link to old prototype of function</li>
+                    <pre>
+
+                        function Student() {
+                            this.name = 'John';
+                            this.gender = 'M';
+                        }
+                        
+                        Student.prototype.age = 15;
+                        
+                        var studObj1 = new Student();
+                        console.log('studObj1.age = ' + studObj1.age); // 15
+                        
+                        var studObj2 = new Student();
+                        console.log('studObj2.age = ' + studObj2.age); // 15
+                        
+                        Student.prototype = { age : 20 };
+                        
+                        var studObj3 = new Student();
+                        console.log('studObj3.age = ' + studObj3.age); // 20
+                        
+                        console.log('studObj1.age = ' + studObj1.age); // 15
+                        console.log('studObj2.age = ' + studObj2.age); // 15 
+
+                    </pre>
+                    <li>In JavaScript, inheritance is supported by using prototype object. This also called as "Prototypal Inheriatance" and "Behaviour Delegation".</li>
+                    <pre>
+
+                        function Person(firstName, lastName) {
+                            this.FirstName = firstName || "unknown";
+                            this.LastName = lastName || "unknown";            
+                        }
+                        
+                        Person.prototype.getFullName = function () {
+                            return this.FirstName + " " + this.LastName;
+                        }
+                        function Student(firstName, lastName, schoolName, grade)
+                        {
+                            Person.call(this, firstName, lastName);
+                        
+                            this.SchoolName = schoolName || "unknown";
+                            this.Grade = grade || 0;
+                        }
+                        //Student.prototype = Person.prototype;
+                        Student.prototype = new Person();
+                        Student.prototype.constructor = Student;
+                        
+                        var std = new Student("James","Bond", "XYZ", 10);
+                                    
+                        console.log(std.getFullName()); // James Bond
+                        console.log(std instanceof Student); // true
+                        console.log(std instanceof Person); // true
+
+                    </pre>
+
+                </ul>
+
+
+           
+        
+       <script>
+
+            //1. Traditional way to create Object in Javascript 
+            console.log("**************************************************************************" );
+            console.log("*          1. Traditional way to create Object in Javascript             *" );
+            console.log("**************************************************************************" );
+            var a = {};
+            var b = {
+                "First_Name" : "Christon" ,
+                "Last_Name"  : " Cardoza" ,
+                "Full_Name" : function(){
+                    return (b.First_Name + b.Last_Name);
+                }
+            }
+            b.age = 24;
+            console.log("The Full Name is :",b.Full_Name());
+            console.log("The created object is :",b); 
+
+
+            //2. Usage of function for creating objects in Javascript 
+            console.log("**************************************************************************" );
+            console.log("*        2. Usage of function for creating objects in Javascript         *" );
+            console.log("**************************************************************************" );
+
+            function ObjectCreator2(firstname,lastname,age){
+
+                var newObject = {};
+
+                newObject.firstname = firstname;
+                newObject.lastname = lastname;
+                newObject.age = age;
+                newObject.fullname = firstname + lastname;
+
+                return newObject
+
+            }
+
+                obj1 = ObjectCreator2("Christon","Cardoza",24);
+                obj2 = ObjectCreator2("Chrizel","Cardoza",16);
+
+                console.log("The created object Obj1 is :",obj1);   
+                console.log("The created object Obj2 is :",obj2);
+
+            // 3. Best way of creating object in Javascript using NEW keyword (Constructor Function)
+            console.log("*****************************************************************************************************" );
+            console.log("*     3. Best way of creating object in Javascript using NEW keyword (Constructor Function)         *" );
+            console.log("*****************************************************************************************************" );
+
+            function ObjectCreator(firstname,lastname,age){
+
+                this.firstname = firstname;
+                this.lastname = lastname;
+                this.age = age;
+                this.fullname = firstname + lastname;
+
+           }
+
+                obj1 =  new ObjectCreator("Christon","Cardoza",24);
+                obj2 =  new ObjectCreator("Chrizel","Cardoza",16);
+
+                console.log("The created object Obj1 is :",obj1);  
+                console.log("The created object Obj2 is :",obj2);
+
+            //4.a The rules applies to "this" and Its Precedence: Global scope
+            console.log("************************************************************************************" );
+            console.log("*         4.a The rules applies to THIS and Its Precedence: Global scope           *" );
+            console.log("************************************************************************************" );
+            var myVar1 = 100;
+
+            function WhoIsThis1() {
+                var myVar = 200;
+
+                console.log("myVar1 = " + myVar1); // 200
+                console.log("this.myVar = " + this.myVar1); // 100
+            }
+
+            WhoIsThis1(); // inferred as window.WhoIsThis()  
+
+            //4.b The rules applies to "this" and Its Precedence: Object method
+            console.log("************************************************************************************" );
+            console.log("*         4.b The rules applies to THIS and Its Precedence: Object method          *" );
+            console.log("************************************************************************************" );
+            var myVar2 = 100;
+
+            function WhoIsThis2() {
+                this.myVa2r = 200;
+                
+                this.display2 = function(){
+                    var myVar2 = 300;
+                    
+                    console.log("myVar = " + myVar2); // 300
+                    console.log("this.myVar = " + this.myVar2);  // 200
+                };
+            }
+            var obj2 = new WhoIsThis2();
+
+            obj2.display2();
+
+            //4.c The rules applies to "this" and Its Precedence: call() and apply()
+            console.log("****************************************************************************************" );
+            console.log("*         4.c The rules applies to THIS and Its Precedence: call() and apply()         *" );
+            console.log("****************************************************************************************" );
+            var myVar3 = 100;
+
+            function WhoIsThis3() {
+
+                console.log(this.myVar3);
+            }
+
+            var obj31 = { myVar3 : 200 , whoIsThis: WhoIsThis1 };
+
+            var obj32 = { myVar3 : 300 , whoIsThis: WhoIsThis1 };
+
+            WhoIsThis3(); // 'this' will point to window object
+
+            WhoIsThis3.call(obj31); // 'this' will point to obj1
+
+            WhoIsThis3.apply(obj32); // 'this' will point to obj2
+
+            // obj31.whoIsThis3.call(window); // 'this' will point to window object
+
+            WhoIsThis3.apply(obj32); // 'this' will point to obj2
+
+
+
+            //4.d The rules applies to "this" and Its Precedence: bind()  
+            console.log("****************************************************************************************" );
+            console.log("*         4.d The rules applies to THIS and Its Precedence: bind()                     *" );
+            console.log("****************************************************************************************" );
+            var myVar4 = 100;
+            
+            function SomeFunction4(callback)
+            {
+                var myVar4 = 200;
+
+                callback();
+            };
+                
+            var obj4 = {
+                        myVar4: 300,
+                        WhoIsThis4 : function() {
+                            console.log("'this' points to " + this + ", myVar4 = " + this.myVar4);
+                        }
+                };
+                
+            SomeFunction4(obj4.WhoIsThis4); 
+            SomeFunction4(obj4.WhoIsThis4.bind(obj4)); 
+
+
+            //5.a  Prototype  and Inheritance in JavaScript:  Prototype 
+            console.log("****************************************************************************************" );
+            console.log("*         5.a  Prototype  and Inheritance in JavaScript:  Prototype                    *" );
+            console.log("****************************************************************************************" );
+
+            function Student() {
+                this.name = 'John';
+                this.gender = 'M';
+                        }
+                        
+            Student.prototype.age = 15;
+            
+            var studObj1 = new Student();
+            console.log('studObj1.age = ' + studObj1.age); // 15
+            
+            var studObj2 = new Student();
+            console.log('studObj2.age = ' + studObj2.age); // 15
+            
+            Student.prototype = { age : 20 };
+            
+            var studObj3 = new Student();
+            console.log('studObj3.age = ' + studObj3.age); // 20
+            
+            console.log('studObj1.age = ' + studObj1.age); // 15
+            console.log('studObj2.age = ' + studObj2.age); // 15 
+
+
+            //5.b  Prototype  and Inheritance in JavaScript:  Inheritance 
+            console.log("****************************************************************************************" );
+            console.log("*         5.b  Prototype  and In heritance in JavaScript:Inheritance                   *" );
+            console.log("****************************************************************************************" );
+
+            function Person(firstName, lastName) {
+                this.FirstName = firstName || "unknown";
+                this.LastName = lastName || "unknown";            
+            }
+                        
+            Person.prototype.getFullName = function () {
+                return this.FirstName + " " + this.LastName;
+            }
+            function Student(firstName, lastName, schoolName, grade)
+            {
+                Person.call(this, firstName, lastName);
+            
+                this.SchoolName = schoolName || "unknown";
+                this.Grade = grade || 0;
+            }
+            //Student.prototype = Person.prototype;
+            Student.prototype = new Person();
+            Student.prototype.constructor = Student;
+            
+            var std = new Student("James","Bond", "XYZ", 10);
+                        
+            console.log(std.getFullName()); // James Bond
+            console.log(std instanceof Student); // true
+            console.log(std instanceof Person); // true
+                    
+        </script>
+
+    </body>
+
+</html>
