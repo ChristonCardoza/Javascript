@@ -1,0 +1,359 @@
+<html>
+    <head>
+        <title>AsyncPatterns</title>
+    </head>
+    <body>
+        <p><h3 style="color: blue;">Checkout the console logs for more informarion!</h3></p>
+
+        1. Synchronously Executing the code : Below Example first prints <code>"Start"</code> then <code>"{userName:username}"</code> then <code>"Stop"</code> 
+            <pre>
+                <code>
+
+                        // Sync way
+                        console.log("Start");
+                        
+                        function loginUser(username,password){
+                        
+                            return {userName:username};
+                        }
+                        console.log(loginUser("Christon",123));
+                        console.log("Stop");
+
+                </code>
+            </pre>
+
+        2. Issue Encountered when executing  functions like <code>setTimeout</code> : Below Example first prints <code>"Start"</code> then <code>"undefine"</code> then <code>"Stop"</code>
+            The reason for getting "undefine" is function <code>setTimeout</code> waits for 5sec then execute that time Javascript engine doesn't have the value for "user"
+        
+            <pre>
+                <code>
+
+                        // Issue
+                        console.log("Start");
+
+                        function loginUser(username,password){
+                            setTimeout(function () {
+                                console.log("I am Inside login Function");
+                                return {userName:username};
+                            },5000);
+                            
+                        }
+                        var user = loginUser("Christon",123)
+                        console.log(user); // undefine
+                        console.log("Stop");
+
+                </code>
+            </pre>
+
+        3. Solutions :
+            <ul>
+                <li>
+                    Callback:- <br/><br/>
+
+                        A callback function is a function passed into another function as an argument, which is then invoked inside the outer function to complete some kind of routine or action
+                        This function is called when the asynchronous operation is completed. Mainly the body of callback function contains the asynchronous operation.
+                        The most common form is “error-first” callback in which if the parent function and takes error parameter, if there is an error then it executes the error part otherwise execute the other part.
+                        <br/><br/>
+                        Below Example first prints <code>"Start"</code> then startcountdown for <code>setTimeout</code> begins Immiately prints <code>"Stop"</code> then after 5 second it will callback and return the value for "user"<code>"{userName:username}"</code> the code get complex when more number of function involved
+                        <pre>
+                                <code>
+                
+                                        // Callback
+                                        console.log("Start");
+                
+                                        function loginUser(username,password,callback){
+                                            setTimeout(function () {
+                                                console.log("I am Inside login Function");
+                                                callback({userName:username}) ;
+                                            },5000);
+                                            
+                                        }
+                                        var user = loginUser("Christon",123, function(user){console.log(user);})
+                                        console.log("Stop");
+                
+                                </code>
+                            </pre>
+                </li>
+
+                <li>
+                    Promises:- <br/><br/>
+
+                        A promise is an object representing the eventual completion or failure of an async call. What this means is that, just like callbacks, promises intuitively help us handle both the error and success responses of actions that are not immediately executed, albeit in a nicer, cleaner way.
+                        The Promise() constructor takes two parameters: resolve and reject, which are both callbacks. We can run an async action within the callback, then resolve if it’s successful or reject if there’s a failure
+                        <br/><br/>
+                        Below Example first prints <code>"Start"</code> then startcountdown for <code>setTimeout</code> begins Immiately prints <code>"Stop"</code> then after 5 second it will  return the value for "user"<code>"{userName:username}"</code> 
+                        promise retuns 2 types of value <code></code>resolve: return the result and <code></code>reject: throws the error exceptions. we can get the retun values of  <coderesolve></code> using <code>.then(() => {}</code>) and catch error or exception of <code>reject</code> from  <code>.catch(() => {})</code>
+                        The code get complex when more number of function involved but This is less complex than callback
+                        <pre>
+                                <code>
+                
+                                        // promisessss
+                                        console.log("Start");
+                                        
+                                        function loginUser(username,password){
+                                            return new Promise(function(resolve,reject){
+                                                setTimeout(function () {
+                                                    console.log("I am Inside login Function");
+                                                    resolve({userName:username}) ;
+                                                },5000);
+                                        
+                                            });
+                                        
+                                            
+                                        }
+                                        
+                                        loginUser("Christon",123)
+                                        .then(function(user){console.log(user);});
+                                        
+                                        console.log("Stop");
+                
+                                </code>
+                            </pre>
+                </li>
+
+                <li>
+                        async and await:- <br/><br/>
+
+                            Async functions allow us to write an asynchronous program as if it were synchronous. 
+                            async functions use promises under the hood.The signature of an async function is marked by the word async before the function keyword. Additionally, methods can be made async by writing async before their name. 
+                            When such a function or method is called, it returns a promise. As soon as it returns, the promise is resolved; if an exception is thrown, the promise is rejected
+                            <br/><br/>
+                            Below Example first prints <code>"Start"</code> then startcountdown for <code>setTimeout</code> begins Immiately prints <code>"Stop"</code> then after 5 second it will  return the value for "user"<code>"{userName:username}"</code>                             
+                            <pre>
+                                    <code>
+                    
+                                            // async and await
+
+                                            console.log("Start");
+                                            
+                                            function loginUser(username,password){
+                                                return new Promise(function(resolve,reject){
+                                                    setTimeout(function () {
+                                                        console.log("I am Inside login Function");
+                                                        resolve({userName:username}) ;
+                                                    },5000);
+                                            
+                                                });
+                                            
+                                                
+                                            }
+                                            
+                                            async function calling(){
+                                                var user = await loginUser("Christon",123)
+                                                console.log(user);
+                                            }
+                                            
+                                            calling();
+                                            
+                                            console.log("Stop");
+                    
+                                    </code>
+                                </pre>
+                    </li>
+            </ul>  
+
+        
+       <script>
+
+            // 1. Synchronously Executing the code
+            console.log("******************************************************************************************************************" );
+            console.log("*                                        1. Synchronously Executing the code                                     *" );
+            console.log("******************************************************************************************************************" );
+            
+            console.log("Start");            
+            function loginUser1(username,password){
+            
+                return {userName1:username};
+            }
+            console.log(loginUser1("Christon",123));
+            console.log("Stop");
+
+            // 2. Issue Encountered when executing  functions like setTimeout
+            console.log("******************************************************************************************************************" );
+            console.log("*                       2. Issue Encountered when executing  functions like setTimeout                           *" );
+            console.log("******************************************************************************************************************" );
+            
+            console.log("Start");
+            function loginUser2(username,password){
+                setTimeout(function () {
+                    console.log("I am Inside login Function: Issue Encountered");
+                    return {userNam2e:username};
+                },5000);
+                
+            }
+            var user2 = loginUser2("Christon",123)
+            console.log(user2); // undefine
+            console.log("Stop");
+
+            //  3a. Solutions : Callback 
+            console.log("******************************************************************************************************************" );
+            console.log("*                       3a. Solutions : Callback                                                                 *" );
+            console.log("******************************************************************************************************************" );
+            
+            console.log("Start");    
+            function loginUser3(username,password,callback){
+                setTimeout(function () {
+                    console.log("I am Inside login Function: Callback ");
+                    callback({userName3:username}) ;
+                },5000);
+                
+            }
+            var user = loginUser3("Christon",123, function(user3){console.log(user3);})
+            console.log("Stop");
+
+            //  3b. Solutions : Promises 
+            console.log("******************************************************************************************************************" );
+            console.log("*                       3b. Solutions : Promises                                                                 *" );
+            console.log("******************************************************************************************************************" );
+
+            console.log("Start");                             
+            function loginUser4(username,password){
+                return new Promise(function(resolve,reject){
+                    setTimeout(function () {
+                        console.log("I am Inside login Function: Promises ");
+                        resolve({userName4:username}) ;
+                    },10000);
+            
+                });
+            
+                
+            }
+            
+            loginUser4("Antony",123)
+            .then(function(user4){console.log(user4);});
+            console.log("Stop");
+
+            //  3c. Solutions : async and await
+            console.log("******************************************************************************************************************" );
+            console.log("*                       3c. Solutions : async and await                                                          *" );
+            console.log("******************************************************************************************************************" );
+
+            console.log("Start");                                
+            function loginUser5(username,password){
+                return new Promise(function(resolve,reject){
+                    setTimeout(function () {
+                        console.log("I am Inside login Function: async and await");
+                        resolve({userName5:username}) ;
+                    },15000);
+            
+                });
+            
+                
+            }
+            
+            async function calling(){
+                var userName5 = await loginUser5("Cardoza",123)
+                console.log(userName5);
+            }
+            
+            calling();
+            console.log("Stop");
+                    
+        </script>
+
+    </body>
+
+</html>
+
+
+
+
+
+<script>
+// // Sync way
+// console.log("Start");
+
+// function loginUser(username,password){
+
+//     return {userName:username};
+// }
+// console.log(loginUser("Christon",123));
+// console.log("Stop");
+
+
+// // Issue
+// console.log("Start");
+
+// function loginUser(username,password){
+//     setTimeout(function () {
+//         console.log("I am Inside login Function");
+//         return {userName:username};
+//     },5000);
+    
+// }
+// var user = loginUser("Christon",123)
+// console.log(user); // undefine
+// console.log("Stop");
+
+
+
+
+// // Callback
+// console.log("Start");
+
+// function loginUser(username,password,callback){
+//     setTimeout(function () {
+//         console.log("I am Inside login Function");
+//         callback({userName:username}) ;
+//     },5000);
+    
+// }
+// var user = loginUser("Christon",123, function(user){console.log(user);})
+// console.log("Stop");
+
+
+// // promises
+// console.log("Start");
+
+// function loginUser(username,password){
+//     return new Promise(function(resolve,reject){
+//         setTimeout(function () {
+//             console.log("I am Inside login Function");
+//             resolve({userName:username}) ;
+//         },5000);
+
+//     });
+
+    
+// }
+
+// loginUser("Christon",123)
+// .then(function(user){console.log(user);});
+
+// console.log("Stop");
+
+
+
+// // async and await
+
+// console.log("Start");
+
+// function loginUser(username,password){
+//     return new Promise(function(resolve,reject){
+//         setTimeout(function () {
+//             console.log("I am Inside login Function");
+//             resolve({userName:username}) ;
+//         },5000);
+
+//     });
+
+    
+// }
+
+// async function calling(){
+//     var user = await loginUser("Christon",123)
+//     console.log(user);
+// }
+
+// calling();
+
+// console.log("Stop");
+
+</script>
+
+
+
+
+
+
+
